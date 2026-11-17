@@ -266,7 +266,8 @@ async function renderChart() {
     month: (time) => new Intl.DateTimeFormat(locale(), { month: "short", year: "2-digit", timeZone: "UTC" }).format(time),
     tick: (v, step) => fmtNumber(v, step >= 1 ? 0 : Math.min(decimals, Math.max(1, -Math.floor(Math.log10(step))))),
   };
-  const until = entry.kind === "step" ? Date.now() : undefined;
+  // Step series run until today, or until the day a closed series ended.
+  const until = entry.kind === "step" ? (entry.ended ? toTime(entry.ended) : toTime(state.index.data_updated)) : undefined;
   drawChart(host, { times, values, dates, format, step: entry.kind === "step", until });
   const name = entry.name[state.lang];
   host.setAttribute("aria-label", t("chart_label")(name, fmtValue(entry, values[values.length - 1]), fmtDate(dates[dates.length - 1])));
