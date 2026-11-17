@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>indicadores-mx · Indicadores económicos oficiales de México, trazables al DOF</title>
+  <meta name="description" content="Dataset abierto y API estática gratuita (JSON y CSV) del tipo de cambio FIX, UDIS, TIIE, INPC, inflación, salario mínimo y UMA. Cada valor enlaza a su publicación en el Diario Oficial de la Federación.">
+  <meta name="theme-color" content="#0a0c10">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/styles.css">
+  <meta property="og:title" content="indicadores-mx">
+  <meta property="og:description" content="Indicadores económicos oficiales de México como datos abiertos y API estática, cada valor trazable al DOF.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://beg-lag.github.io/indicadores-mx/">
+  <meta property="og:image" content="https://beg-lag.github.io/indicadores-mx/assets/og.png">
+  <script type="module" src="assets/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
+
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="#" aria-label="indicadores-mx"><i aria-hidden="true"></i><span>indicadores<b>-mx</b></span></a>
+      <nav class="nav" aria-label="Secciones" data-i18n-attr="aria-label:nav">
+        <a href="#valores" data-i18n="nav_values">Valores</a>
+        <a href="#graficas" data-i18n="nav_charts">Gráficas</a>
+        <a href="#convertidor" data-i18n="nav_converter">Convertidor</a>
+        <a href="#api" data-i18n="nav_api">API</a>
+        <a href="#fuentes" data-i18n="nav_sources">Fuentes</a>
+      </nav>
+      <button class="lang" id="lang" type="button" aria-label="Switch to English" lang="en">EN</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <p class="kicker"><span class="pulse" aria-hidden="true"></span><span data-i18n="kicker">Datos abiertos · API estática · actualizado por GitHub Actions</span></p>
+      <h1 id="hero-title" data-i18n-html="title">Los indicadores oficiales de México, <em>trazables al DOF</em>.</h1>
+      <p class="lead" data-i18n="lead">Tipo de cambio FIX, UDIS, TIIE, INPC e inflación, salario mínimo y UMA. Cada valor trae la nota del Diario Oficial de la Federación que lo publicó, y se sirve como JSON y CSV sin cuenta, sin token y con CORS abierto.</p>
+      <div class="cta">
+        <a class="btn primary" href="#api" data-i18n="cta_api">Usar la API</a>
+        <a class="btn" href="https://github.com/BEG-lag/indicadores-mx" data-i18n="cta_repo">Código y datos en GitHub</a>
+      </div>
+      <p class="fresh" id="fresh" aria-live="polite"></p>
+    </section>
+
+    <section class="wrap block" id="valores" aria-labelledby="values-title">
+      <div class="head">
+        <h2 id="values-title" data-i18n="values_title">Últimos valores</h2>
+        <p class="sub" data-i18n="values_sub">Cada tarjeta enlaza a la nota del DOF. La marca ✓ indica que el valor se comparó con el texto de la nota.</p>
+      </div>
+      <div class="cards" id="cards" aria-live="polite">
+        <p class="loading" data-i18n="loading">Cargando datos…</p>
+      </div>
+      <noscript><p class="note">Las tarjetas y gráficas necesitan JavaScript. Los datos están en <a href="v1/index.json">v1/index.json</a>.</p></noscript>
+    </section>
+
+    <section class="wrap block" id="graficas" aria-labelledby="charts-title">
+      <div class="head">
+        <h2 id="charts-title" data-i18n="charts_title">Gráficas</h2>
+        <p class="sub" data-i18n="charts_sub">Elige una serie y un periodo. Con el teclado: enfoca la gráfica y usa las flechas, Inicio y Fin.</p>
+      </div>
+      <div class="chart-controls">
+        <label class="field">
+          <span data-i18n="series">Serie</span>
+          <select id="chart-series"></select>
+        </label>
+        <div class="ranges" role="group" aria-label="Periodo" data-i18n-attr="aria-label:range" id="chart-ranges">
+          <button type="button" data-range="1m">1M</button>
+          <button type="button" data-range="6m">6M</button>
+          <button type="button" data-range="1y" aria-pressed="true">1A</button>
+          <button type="button" data-range="5y">5A</button>
+          <button type="button" data-range="10y">10A</button>
+          <button type="button" data-range="all" data-i18n="all">Todo</button>
+        </div>
+      </div>
+      <figure class="chart-box">
+        <div class="chart" id="chart" tabindex="0" role="img" aria-label="Gráfica"></div>
+        <figcaption class="chart-caption" id="chart-caption"></figcaption>
+      </figure>
+      <details class="table-toggle">
+        <summary data-i18n="show_table">Ver los últimos valores en una tabla</summary>
+        <div class="table-wrap"><table id="chart-table"></table></div>
+      </details>
+    </section>
+
+    <section class="wrap block" id="convertidor" aria-labelledby="conv-title">
+      <div class="head">
+        <h2 id="conv-title" data-i18n="conv_title">Convertidor</h2>
+        <p class="sub" data-i18n="conv_sub">Cálculos en tu navegador con los valores publicados. Informativo: no constituye asesoría legal ni fiscal.</p>
+      </div>
+      <div class="tools">
+        <form class="tool" id="udi-form" novalidate>
+          <h3 data-i18n="udi_title">Pesos y UDIS en una fecha</h3>
+          <div class="row">
+            <label class="field"><span data-i18n="date">Fecha</span><input type="date" id="udi-date" required></label>
+            <label class="field"><span data-i18n="amount">Monto</span><input type="text" inputmode="decimal" id="udi-amount" value="100000" autocomplete="off"></label>
+          </div>
+          <fieldset class="seg">
+            <legend class="sr-only" data-i18n="direction">Dirección</legend>
+            <label><input type="radio" name="udi-dir" value="mxn" checked> <span data-i18n="pesos_to_udis">Pesos a UDIS</span></label>
+            <label><input type="radio" name="udi-dir" value="udi"> <span data-i18n="udis_to_pesos">UDIS a pesos</span></label>
+          </fieldset>
+          <output class="result" id="udi-result" aria-live="polite"></output>
+        </form>
+
+        <form class="tool" id="inf-form" novalidate>
+          <h3 data-i18n="inf_title">Inflación entre dos meses</h3>
+          <div class="row">
+            <label class="field"><span data-i18n="from_month">Mes inicial</span><input type="month" id="inf-from" required></label>
+            <label class="field"><span data-i18n="to_month">Mes final</span><input type="month" id="inf-to" required></label>
+          </div>
+          <label class="field"><span data-i18n="amount_optional">Monto a actualizar (opcional)</span><input type="text" inputmode="decimal" id="inf-amount" value="10000" autocomplete="off"></label>
+          <output class="result" id="inf-result" aria-live="polite"></output>
+        </form>
+      </div>
+    </section>
+
+    <section class="wrap block" id="api" aria-labelledby="api-title">
+      <div class="head">
+        <h2 id="api-title" data-i18n="api_title">API estática</h2>
+        <p class="sub" data-i18n-html="api_sub">Archivos JSON y CSV servidos por GitHub Pages, versionados en <code>/v1</code>, con <code>Access-Control-Allow-Origin: *</code>. Sin cuenta, sin token, sin límite publicado más allá del de GitHub Pages.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="endpoints">
+          <thead><tr><th data-i18n="path">Ruta</th><th data-i18n="what">Qué contiene</th></tr></thead>
+          <tbody>
+            <tr><td><code>v1/index.json</code></td><td data-i18n="ep_index">Catálogo: series, unidades, qué significa cada fecha, cobertura, último valor y fuentes.</td></tr>
+            <tr><td><code>v1/{serie}/latest.json</code></td><td data-i18n="ep_latest">El valor más reciente y el anterior.</td></tr>
+            <tr><td><code>v1/{serie}/{AAAA}.json</code></td><td data-i18n="ep_year">Todos los valores de un año.</td></tr>
+            <tr><td><code>v1/{serie}/{AAAA-MM-DD}.json</code></td><td data-i18n="ep_day">Un día (series diarias). Si ese día no hubo publicación, la respuesta es 404: consulta el año.</td></tr>
+            <tr><td><code>v1/{serie}/{AAAA-MM}.json</code></td><td data-i18n="ep_month">Un mes (INPC e inflación).</td></tr>
+            <tr><td><code>v1/{serie}/all.json</code> · <code>all.csv</code></td><td data-i18n="ep_all">La serie completa, con fuente de cada valor.</td></tr>
+            <tr><td><code>v1/{serie}/compact.json</code></td><td data-i18n="ep_compact">Fechas y valores en dos arreglos, para gráficas.</td></tr>
+            <tr><td><code>schema/v1/*.schema.json</code></td><td data-i18n="ep_schema">JSON Schema de cada archivo.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="ids" id="series-ids"></p>
+      <div class="examples">
+        <div class="tabs" role="tablist" aria-label="Ejemplos" data-i18n-attr="aria-label:examples">
+          <button role="tab" id="tab-curl" aria-controls="ex-curl" aria-selected="true" type="button">curl</button>
+          <button role="tab" id="tab-js" aria-controls="ex-js" aria-selected="false" type="button" tabindex="-1">JavaScript</button>
+          <button role="tab" id="tab-py" aria-controls="ex-py" aria-selected="false" type="button" tabindex="-1">Python</button>
+        </div>
+        <div class="panel" role="tabpanel" id="ex-curl" aria-labelledby="tab-curl">
+          <pre><code id="code-curl">curl -s https://beg-lag.github.io/indicadores-mx/v1/fix/latest.json
+
+# UDI de un día, y TIIE 28 de todo 2025 en CSV
+curl -s https://beg-lag.github.io/indicadores-mx/v1/udis/2026-11-17.json
+curl -s https://beg-lag.github.io/indicadores-mx/v1/tiie-28/all.csv | head -3</code></pre>
+          <button class="copy" type="button" data-copy="code-curl" data-i18n="copy">Copiar</button>
+        </div>
+        <div class="panel" role="tabpanel" id="ex-js" aria-labelledby="tab-js" hidden>
+          <pre><code id="code-js">const base = "https://beg-lag.github.io/indicadores-mx/v1";
+const fix = await fetch(`${base}/fix/latest.json`).then((r) =&gt; r.json());
+console.log(fix.date, fix.value, fix.source.url);
+
+// Valor vigente en una fecha sin publicación (fin de semana): el último anterior
+const year = await fetch(`${base}/fix/2026.json`).then((r) =&gt; r.json());
+const onOrBefore = (d) =&gt; year.observations.findLast((o) =&gt; o.date &lt;= d);</code></pre>
+          <button class="copy" type="button" data-copy="code-js" data-i18n="copy">Copiar</button>
+        </div>
+        <div class="panel" role="tabpanel" id="ex-py" aria-labelledby="tab-py" hidden>
+          <pre><code id="code-py">import csv, io, json, urllib.request
+
+BASE = "https://beg-lag.github.io/indicadores-mx/v1"
+
+with urllib.request.urlopen(f"{BASE}/inpc/latest.json") as r:
+    inpc = json.load(r)
+print(inpc["date"], inpc["value"], inpc["source"]["url"])
+
+with urllib.request.urlopen(f"{BASE}/udis/all.csv") as r:
+    rows = list(csv.DictReader(io.TextIOWrapper(r, "utf-8")))
+print(len(rows), rows[-1]["date"], rows[-1]["value"])</code></pre>
+          <button class="copy" type="button" data-copy="code-py" data-i18n="copy">Copiar</button>
+        </div>
+      </div>
+      <h3 class="live-title" data-i18n-html="live_title">Respuesta real de <code>v1/fix/latest.json</code></h3>
+      <pre class="live"><code id="live-response">…</code></pre>
+    </section>
+
+    <section class="wrap block" id="fuentes" aria-labelledby="src-title">
+      <div class="head">
+        <h2 id="src-title" data-i18n="src_title">Fuentes y estatus</h2>
+        <p class="sub" data-i18n-html="src_sub">VERDE: verificado contra el DOF. AMARILLO: fuente oficial con verificación parcial o limitaciones documentadas. ROJO: no verificado. El detalle de cada serie, los errores encontrados en las fuentes y cómo se corrigieron están en <a href="https://github.com/BEG-lag/indicadores-mx/blob/main/docs/fuentes.md">docs/fuentes.md</a>.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="status" id="status-table"></table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p class="disclaimer" data-i18n="disclaimer">Espejo no oficial. Solo el Diario Oficial de la Federación y las instituciones que emiten cada indicador tienen validez oficial. No constituye opinión legal ni asesoría fiscal.</p>
+      <p data-i18n-html="author">Hecho por <strong>Benjamín Esponda García</strong>, abogado mexicano que construye con IA. <a href="https://pivotek.mx">pivotek.mx</a> · <a href="https://github.com/BEG-lag/portafolio-ia">portafolio</a> · <a href="https://github.com/BEG-lag/indicadores-mx">código</a></p>
+      <p class="small" data-i18n-html="licenses">Código bajo licencia MIT. Datos en el dominio público (CC0 1.0). Sin analítica ni cookies. Fuentes tipográficas autoalojadas (SIL OFL 1.1).</p>
+    </div>
+  </footer>
+</body>
+</html>
