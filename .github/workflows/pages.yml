@@ -1,0 +1,49 @@
+name: Deploy site and API
+
+# Builds the static API (/v1) from data/ and publishes it with the site to GitHub
+# Pages. Runs on pushes that touch the data, the site or the code, and is called by
+# the update workflows, because commits pushed with GITHUB_TOKEN do not trigger
+# other workflows.
+on:
+  push:
+    branches: [main]
+    paths: ["data/**", "site/**", "schema/**", "src/**"]
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0 # the build stamps the date of the last commit that touched data/
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+      - name: Build the API and the site into _site
+        run: uv run --frozen indicadores-mx build --out _site
+      - name: Validate the built API against the schemas
+        run: uv run --frozen pytest -q tests/test_api.py --built _site
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v5

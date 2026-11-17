@@ -1,0 +1,100 @@
+name: Update data
+
+# Mexico City has used UTC-6 all year since 2022 (no daylight saving time).
+#
+#   FIX, TIIE, TIIE de fondeo and UDIS: Banco de México determines the FIX and the
+#   TIIE at midday and they appear in the next morning's DOF edition; UDIS are
+#   published on the 10th and the 25th. Runs at 08:25 and 14:25 Mexico City
+#   (14:25 and 20:25 UTC), Monday to Friday. Each run re-reads the last 10 days,
+#   so a late edition or a missed run is picked up.
+#
+#   INPC: INEGI publishes the monthly index in the DOF within the first ten days
+#   of the next month (CFF art. 20), usually on the 9th or 10th. Runs at 09:40
+#   Mexico City (15:40 UTC) on days 7 to 14.
+#
+# Every new value is compared with the text of its DOF note. If anything
+# disagrees, the run fails and nothing is committed (GitHub emails the owner).
+on:
+  schedule:
+    - cron: "25 14 * * 1-5"
+    - cron: "25 20 * * 1-5"
+    - cron: "40 15 7-14 * *"
+  workflow_dispatch:
+    inputs:
+      group:
+        description: "What to update"
+        type: choice
+        options: [all, daily, inpc]
+        default: all
+      days:
+        description: "Days to re-read, including today"
+        default: "10"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+
+      - name: Choose the series
+        id: what
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+          GROUP: ${{ inputs.group }}
+        run: |
+          if [ "$SCHEDULE" = "40 15 7-14 * *" ] || [ "$GROUP" = "inpc" ]; then
+            echo "groups=inpc" >> "$GITHUB_OUTPUT"
+          elif [ "$GROUP" = "daily" ] || [ -n "$SCHEDULE" ]; then
+            echo "groups=daily udis" >> "$GITHUB_OUTPUT"
+          else
+            echo "groups=daily udis inpc" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Fetch, cross-check and merge (writes nothing on any disagreement)
+        run: uv run --frozen indicadores-mx update --group ${{ steps.what.outputs.groups }} --days "${{ inputs.days || '10' }}"
+
+      - name: Validate every data file and the built API
+        run: uv run --frozen pytest -q
+
+      - name: Commit if anything changed
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "No new values."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m "chore(data): $(cat .cache/data-summary.txt)"
+          git pull --rebase origin main
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: update
+    if: needs.update.outputs.changed == 'true'
+    uses: ./.github/workflows/pages.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write

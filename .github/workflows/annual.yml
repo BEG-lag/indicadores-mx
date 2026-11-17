@@ -1,0 +1,124 @@
+name: Yearly values (minimum wage and UMA)
+
+# CONASAMI publishes the minimum wage resolution in the DOF in December (in force
+# from 1 January) and INEGI publishes the UMA in the first ten days of January (in
+# force from 1 February). This workflow looks for the new note, reads the values
+# and stops for a person to review them before anything is committed:
+#
+#   1. detect: scans the DOF, parses the note, writes a report to the job summary
+#      and uploads the proposed data files. No write permission.
+#   2. apply: runs in the "annual-review" environment. Configure that environment
+#      with required reviewers (Settings > Environments), so the job waits until
+#      someone checks the report against the DOF link and approves it.
+on:
+  schedule:
+    - cron: "0 15 28 12 *" # 28 December, 09:00 Mexico City: minimum wage
+    - cron: "0 15 12 1 *" # 12 January, 09:00 Mexico City: UMA
+  workflow_dispatch:
+    inputs:
+      kind:
+        description: "Which value"
+        type: choice
+        options: [salario-minimo, uma]
+        default: salario-minimo
+      since:
+        description: "First DOF date to scan (YYYY-MM-DD, default 75 days ago)"
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      changed: ${{ steps.diff.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+      - name: Which value
+        id: kind
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+          KIND: ${{ inputs.kind }}
+        run: |
+          if [ "$SCHEDULE" = "0 15 12 1 *" ]; then echo "kind=uma" >> "$GITHUB_OUTPUT";
+          elif [ -n "$KIND" ]; then echo "kind=$KIND" >> "$GITHUB_OUTPUT";
+          else echo "kind=salario-minimo" >> "$GITHUB_OUTPUT"; fi
+      - name: Look for the new note in the DOF and read it
+        run: |
+          uv run --frozen indicadores-mx annual --kind "${{ steps.kind.outputs.kind }}" \
+            ${{ inputs.since && format('--since {0}', inputs.since) || '' }} --report annual-report.md
+      - name: Check every yearly value against its DOF note
+        run: uv run --frozen indicadores-mx verify-steps
+      - name: Validate
+        run: uv run --frozen pytest -q
+      - name: Report
+        id: diff
+        run: |
+          cat annual-report.md >> "$GITHUB_STEP_SUMMARY"
+          if git diff --quiet -- data; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            { echo '```diff'; git diff -- data; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v7
+        if: steps.diff.outputs.changed == 'true'
+        with:
+          name: proposed-data
+          path: data/
+          retention-days: 30
+
+  apply:
+    needs: detect
+    if: needs.detect.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    environment: annual-review # requires approval by a reviewer
+    permissions:
+      contents: write
+    outputs:
+      changed: ${{ steps.commit.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+      - uses: actions/download-artifact@v8
+        with:
+          name: proposed-data
+          path: data/
+      - run: uv run --frozen pytest -q
+      - name: Commit as github-actions[bot]
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          git commit -m "chore(data): reviewed yearly values ($(date -u +%Y-%m-%d))"
+          git pull --rebase origin main
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    needs: apply
+    if: needs.apply.outputs.changed == 'true'
+    uses: ./.github/workflows/pages.yml
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
