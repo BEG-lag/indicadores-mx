@@ -1,0 +1,154 @@
+{
+ "messageCode": 200,
+ "response": "OK",
+ "NotasExtraordinarias": [],
+ "imagenesDiario": [
+  {
+   "VES": true
+  },
+  {
+   "MAT": true
+  }
+ ],
+ "NotasVespertinas": [
+  {
+   "codNota": 5803616,
+   "codSeccion": "UNICA",
+   "fecha": "11-11-2026",
+   "codDiario": 330765,
+   "existeHtml": "S",
+   "existeDoc": "N",
+   "existeImagen": "S",
+   "tipoNota": "null",
+   "estado": 2,
+   "pagina": 2,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "PODER EJECUTIVO",
+   "codOrgaUno": "PE",
+   "codOrgaDos": "PRESIDENCIA DE LA REPUBLICA",
+   "orden": 1.0,
+   "existePdf": "S"
+  }
+ ],
+ "NotasMatutinas": [
+  {
+   "codNota": 5803536,
+   "codSeccion": "UNICA",
+   "fecha": "11-11-2026",
+   "codDiario": 330745,
+   "existeHtml": "S",
+   "existeDoc": "N",
+   "existeImagen": "S",
+   "tipoNota": "null",
+   "estado": 2,
+   "pagina": 4,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "PODER EJECUTIVO",
+   "codOrgaUno": "PE",
+   "codOrgaDos": "SECRETARIA DE MARINA",
+   "orden": 1.0,
+   "existePdf": "S"
+  },
+  {
+   "codNota": 5803579,
+   "titulo": "Aviso REF:582103",
+   "codSeccion": "UNICA",
+   "fecha": "11-11-2026",
+   "codDiario": 330745,
+   "existeHtml": "S",
+   "existeDoc": "S",
+   "existeImagen": "S",
+   "tipoNota": "AVISO",
+   "estado": -9,
+   "pagina": 31,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "AVISOS JUDICIALES Y GENERALES",
+   "codOrgaUno": "AV",
+   "orden": 44.0,
+   "existePdf": "S"
+  },
+  {
+   "codNota": 5803551,
+   "codSeccion": "UNICA",
+   "fecha": "11-11-2026",
+   "codDiario": 330745,
+   "existeHtml": "S",
+   "existeDoc": "N",
+   "existeImagen": "S",
+   "tipoNota": "null",
+   "estado": 2,
+   "pagina": 28,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "ORGANISMOS AUTONOMOS",
+   "codOrgaUno": "OA",
+   "codOrgaDos": "BANCO DE MEXICO",
+   "orden": 16.0,
+   "existePdf": "S"
+  },
+  {
+   "codNota": 5803554,
+   "titulo": "Tasa de interés interbancaria de equilibrio de fondeo a un día hábil bancario.",
+   "codSeccion": "UNICA",
+   "fecha": "11-11-2026",
+   "codDiario": 330745,
+   "existeHtml": "S",
+   "existeDoc": "S",
+   "existeImagen": "S",
+   "tipoNota": "null",
+   "estado": 2,
+   "pagina": 28,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "ORGANISMOS AUTONOMOS",
+   "codOrgaUno": "OA",
+   "codOrgaDos": "BANCO DE MEXICO",
+   "orden": 19.0,
+   "existePdf": "S"
+  },
+  {
+   "codNota": 5803552,
+   "titulo": "Tipo de cambio para solventar obligaciones denominadas en moneda extranjera pagaderas en la República Mexicana.",
+   "codSeccion": "UNICA",
+   "fecha": "11-11-2026",
+   "codDiario": 330745,
+   "existeHtml": "S",
+   "existeDoc": "S",
+   "existeImagen": "S",
+   "tipoNota": "null",
+   "estado": 2,
+   "pagina": 28,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "ORGANISMOS AUTONOMOS",
+   "codOrgaUno": "OA",
+   "codOrgaDos": "BANCO DE MEXICO",
+   "orden": 17.0,
+   "existePdf": "S"
+  },
+  {
+   "codNota": 5803553,
+   "titulo": "Tasas de interés interbancarias de equilibrio.",
+   "codSeccion": "UNICA",
+   "fecha": "11-11-2026",
+   "codDiario": 330745,
+   "existeHtml": "S",
+   "existeDoc": "S",
+   "existeImagen": "S",
+   "tipoNota": "null",
+   "estado": 2,
+   "pagina": 28,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "ORGANISMOS AUTONOMOS",
+   "codOrgaUno": "OA",
+   "codOrgaDos": "BANCO DE MEXICO",
+   "orden": 18.0,
+   "existePdf": "S"
+  }
+ ],
+ "audioSumario": [
+  {
+   "MAT": {}
+  },
+  {
+   "VES": {}
+  }
+ ]
+}

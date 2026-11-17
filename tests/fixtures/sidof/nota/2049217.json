@@ -1,0 +1,28 @@
+{
+ "messageCode": 200,
+ "response": "OK",
+ "Nota": {
+  "codNota": 2049217,
+  "titulo": "Valor de la unidad de inversión   ",
+  "codSeccion": "PRIMERA",
+  "fecha": "10-01-2000",
+  "codDiario": 150095,
+  "cadenaContenido": "<HTML><BODY><p align=\"justify\"><font size=\"2\" face=\"Arial\">VALOR de la unidad de inversión.</b></font></p>\n<p align=\"justify\"><font size=\"2\" face=\"Arial\">Al margen un logotipo, que dice: Banco de México.</font></p>\n<p align=\"center\"><font size=\"1\" face=\"Helv\">VALOR DE LA UNIDAD DE INVERSION</font></p>\n<p>&nbsp;&nbsp;<font size=\"2\" face=\"Helv\">El Banco de México, en cumplimiento de lo dispuesto por el artículo tercero del Decreto que establece las obligaciones que podrán denominarse en unidades de inversión y reforma y adiciona diversas disposiciones del Código Fiscal de la Federación y de la Ley del Impuesto sobre la Renta; con fundamento en los artículos 8o. y 10o. de su Reglamento Interior, y según el procedimiento publicado por el propio Banco Central en el <b>Diario Oficial de la Federación</b> del 4 de abril de 1995, da a conocer el valor en pesos de la Unidad de Inversión, para los días 11 a 25 de enero de 2000.</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\"><b>Fecha&nbsp;Valor (Pesos)</b></font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">11-enero-2000&nbsp;2.680890</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">12-enero-2000&nbsp;2.682031</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">13-enero-2000&nbsp;2.683173</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">14-enero-2000&nbsp;2.684315</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">15-enero-2000&nbsp;2.685458</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">16-enero-2000&nbsp;2.686601</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">17-enero-2000&nbsp;2.687744</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">18-enero-2000&nbsp;2.688888</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">19-enero-2000&nbsp;2.690033</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">20-enero-2000&nbsp;2.691178</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">21-enero-2000&nbsp;2.692323</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">22-enero-2000&nbsp;2.693469</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">23-enero-2000&nbsp;2.694616</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">24-enero-2000&nbsp;2.695763</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">25-enero-2000&nbsp;2.696910</font></p>\n<p align=\"center\"><font size=\"2\" face=\"Arial\">México, D.F., a 7 de enero de 2000.</font></p>\n<p align=\"center\"><font size=\"2\" face=\"Arial\">BANCO DE MEXICO</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">Director General de Investigación<b>&nbsp;</b>Director de Disposiciones</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">Económica&nbsp;de Banca Central</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\"><b>Armando Baqueiro Cárdenas</b>&nbsp;<b>Héctor Tinoco Jaramillo</b></font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">Rúbrica.&nbsp;Rúbrica.</font></p>\n<p align=\"justify\"><font size=\"2\" face=\"Times New (W1)\"><b></BODY></HTML>",
+  "existeDoc": "S",
+  "existeImagen": "S",
+  "estado": 2,
+  "pagina": 49,
+  "paginaHasta": 0,
+  "codOrgaUno": "ORGANISMOS AUTONOMOS",
+  "codOrgaDos": "BANCO DE MEXICO",
+  "codOrgaTres": "null",
+  "codOrgaCuatro": "null",
+  "nombOrganismo": "null",
+  "orden": 15.0,
+  "codEdicion": "MAT",
+  "tamanioContenido": 0,
+  "ordenSeccion": 1,
+  "existePdf": "S"
+ },
+ "tamanioExcesivo": false
+}

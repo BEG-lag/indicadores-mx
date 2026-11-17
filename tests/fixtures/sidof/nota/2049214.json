@@ -1,0 +1,28 @@
+{
+ "messageCode": 200,
+ "response": "OK",
+ "Nota": {
+  "codNota": 2049214,
+  "titulo": "Tipo de cambio para solventar obligaciones denominadas en moneda extranjera pagaderas en la República Mexicana   ",
+  "codSeccion": "PRIMERA",
+  "fecha": "10-01-2000",
+  "codDiario": 150095,
+  "cadenaContenido": "<HTML><BODY><p align=\"justify\"><font size=\"2\" face=\"Arial\">TIPO de cambio para solventar obligaciones denominadas en moneda extranjera pagaderas en la República Mexicana.</b></font></p>\n<p align=\"justify\"><font size=\"2\" face=\"Arial\">Al margen un logotipo, que dice: Banco de México.</font></p>\n<p align=\"center\"><font size=\"1\" face=\"Arial\">TIPO DE CAMBIO PARA SOLVENTAR OBLIGACIONES DENOMINADAS EN MONEDA EXTRANJERA PAGADERAS EN LA REPUBLICA MEXICANA</font></p>\n<p>&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">Con fundamento en el artículo 35 de la Ley del Banco de México; en los artículos 8o. y 10o. del Reglamento Interior del Banco de México, y en los términos del numeral 1.2 de las Disposiciones Aplicables a la Determinación del Tipo de Cambio para Solventar Obligaciones Denominadas en Moneda Extranjera Pagaderas en la República Mexicana, publicadas en el <b>Diario Oficial de la Federación</b> el 22 de marzo de 1996, el Banco de México informa que el tipo de cambio citado obtenido el día de hoy conforme al procedimiento establecido en el numeral 1 de las Disposiciones mencionadas, fue de $9.5150 M.N. (NUEVE PESOS CON CINCO MIL CIENTO CINCUENTA DIEZMILESIMOS MONEDA NACIONAL) por un dólar de los EE.UU.A.</font></p>\n<p>&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">La equivalencia del peso mexicano con otras monedas extranjeras se calculará atendiendo a la cotización que rija para estas últimas contra el dólar de los EE.UU.A., en los mercados internacionales el día en que se haga el pago. Estas cotizaciones serán dadas a conocer, a solicitud de los interesados, por las instituciones de crédito del país.</font></p>\n<p align=\"center\"><font size=\"2\" face=\"Arial\">Atentamente</font></p>\n<p align=\"center\"><font size=\"2\" face=\"Arial\">México, D.F., a 7 de enero de 2000.</font></p>\n<p align=\"center\"><font size=\"2\" face=\"Arial\">BANCO DE MEXICO</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">Gerente de Inversiones&nbsp;Director de Disposiciones</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">y Cambios Nacionales&nbsp;de Banca Central</font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\"><b>Javier Duclaud González de Castilla</b>&nbsp;<b>Héctor Tinoco Jaramillo</b></font></p>\n<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=\"2\" face=\"Arial\">Rúbrica.&nbsp;Rúbrica.</font></p>\n<p align=\"justify\"><font size=\"2\" face=\"Times New (W1)\"><b></BODY></HTML>",
+  "existeDoc": "S",
+  "existeImagen": "S",
+  "estado": 2,
+  "pagina": 48,
+  "paginaHasta": 0,
+  "codOrgaUno": "ORGANISMOS AUTONOMOS",
+  "codOrgaDos": "BANCO DE MEXICO",
+  "codOrgaTres": "null",
+  "codOrgaCuatro": "null",
+  "nombOrganismo": "null",
+  "orden": 12.0,
+  "codEdicion": "MAT",
+  "tamanioContenido": 0,
+  "ordenSeccion": 1,
+  "existePdf": "S"
+ },
+ "tamanioExcesivo": false
+}

@@ -1,0 +1,192 @@
+{
+ "messageCode": 200,
+ "response": "OK",
+ "NotasExtraordinarias": [],
+ "imagenesDiario": [
+  {
+   "MAT": true
+  },
+  {
+   "VES": true
+  }
+ ],
+ "NotasVespertinas": [
+  {
+   "codNota": 5803836,
+   "codSeccion": "UNICA",
+   "fecha": "13-11-2026",
+   "codDiario": 330825,
+   "existeHtml": "S",
+   "existeDoc": "N",
+   "existeImagen": "S",
+   "tipoNota": "null",
+   "estado": 2,
+   "pagina": 3,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "PODER EJECUTIVO",
+   "codOrgaUno": "PE",
+   "codOrgaDos": "PRESIDENCIA DE LA REPUBLICA",
+   "orden": 1.0,
+   "existePdf": "S"
+  }
+ ],
+ "NotasMatutinas": [
+  {
+   "codNota": 5803756,
+   "codSeccion": "UNICA",
+   "fecha": "13-11-2026",
+   "codDiario": 330805,
+   "existeHtml": "S",
+   "existeDoc": "N",
+   "existeImagen": "S",
+   "tipoNota": "null",
+   "estado": 2,
+   "pagina": 4,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "PODER EJECUTIVO",
+   "codOrgaUno": "PE",
+   "codOrgaDos": "PRESIDENCIA DE LA REPUBLICA",
+   "orden": 1.0,
+   "existePdf": "S"
+  },
+  {
+   "codNota": 5803819,
+   "titulo": "Aviso REF:581596",
+   "codSeccion": "UNICA",
+   "fecha": "13-11-2026",
+   "codDiario": 330805,
+   "existeHtml": "S",
+   "existeDoc": "S",
+   "existeImagen": "S",
+   "tipoNota": "AVISO",
+   "estado": -9,
+   "pagina": 219,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "AVISOS JUDICIALES Y GENERALES",
+   "codOrgaUno": "AV",
+   "orden": 64.0,
+   "existePdf": "S"
+  },
+  {
+   "codNota": 5803775,
+   "titulo": "Tipo de cambio para solventar obligaciones denominadas en moneda extranjera pagaderas en la República Mexicana.",
+   "codSeccion": "UNICA",
+   "fecha": "13-11-2026",
+   "codDiario": 330805,
+   "existeHtml": "S",
+   "existeDoc": "S",
+   "existeImagen": "S",
+   "tipoNota": "null",
+   "estado": 2,
+   "pagina": 178,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "ORGANISMOS AUTONOMOS",
+   "codOrgaUno": "OA",
+   "codOrgaDos": "BANCO DE MEXICO",
+   "orden": 20.0,
+   "existePdf": "S"
+  },
+  {
+   "codNota": 5803774,
+   "codSeccion": "UNICA",
+   "fecha": "13-11-2026",
+   "codDiario": 330805,
+   "existeHtml": "S",
+   "existeDoc": "N",
+   "existeImagen": "S",
+   "tipoNota": "null",
+   "estado": 2,
+   "pagina": 178,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "ORGANISMOS AUTONOMOS",
+   "codOrgaUno": "OA",
+   "codOrgaDos": "BANCO DE MEXICO",
+   "orden": 19.0,
+   "existePdf": "S"
+  },
+  {
+   "codNota": 5803776,
+   "titulo": "Tasas de interés interbancarias de equilibrio.",
+   "codSeccion": "UNICA",
+   "fecha": "13-11-2026",
+   "codDiario": 330805,
+   "existeHtml": "S",
+   "existeDoc": "S",
+   "existeImagen": "S",
+   "tipoNota": "null",
+   "estado": 2,
+   "pagina": 178,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "ORGANISMOS AUTONOMOS",
+   "codOrgaUno": "OA",
+   "codOrgaDos": "BANCO DE MEXICO",
+   "orden": 21.0,
+   "existePdf": "S"
+  },
+  {
+   "codNota": 5803777,
+   "titulo": "Tasa de interés interbancaria de equilibrio de fondeo a un día hábil bancario.",
+   "codSeccion": "UNICA",
+   "fecha": "13-11-2026",
+   "codDiario": 330805,
+   "existeHtml": "S",
+   "existeDoc": "S",
+   "existeImagen": "S",
+   "tipoNota": "null",
+   "estado": 2,
+   "pagina": 178,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "ORGANISMOS AUTONOMOS",
+   "codOrgaUno": "OA",
+   "codOrgaDos": "BANCO DE MEXICO",
+   "orden": 22.0,
+   "existePdf": "S"
+  },
+  {
+   "codNota": 5803778,
+   "titulo": "Circular 13/2026 dirigida a las instituciones de crédito, relativa a las Modificaciones a la Circular 3/2025 (Seguridad Informática).",
+   "codSeccion": "UNICA",
+   "fecha": "13-11-2026",
+   "codDiario": 330805,
+   "existeHtml": "S",
+   "existeDoc": "S",
+   "existeImagen": "S",
+   "tipoNota": "null",
+   "estado": 2,
+   "pagina": 179,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "ORGANISMOS AUTONOMOS",
+   "codOrgaUno": "OA",
+   "codOrgaDos": "BANCO DE MEXICO",
+   "orden": 23.0,
+   "existePdf": "S"
+  },
+  {
+   "codNota": 5803779,
+   "titulo": "Circular 14/2026 dirigida a las instituciones de crédito, sociedades financieras de objeto múltiple reguladas y no reguladas, sociedades financieras populares, sociedades financieras comunitarias, sociedades cooperativas de ahorro y préstamo, uniones de crédito, entidades financieras que actúen como fiduciarias en fideicomisos que otorguen crédito al público, instituciones de financiamiento colectivo de deuda, así como sociedades que, de manera habitual, otorguen créditos, préstamos o financiamientos al público, relativa a las Modificaciones a la Circular 21/2009 (Costo Anual Total -CAT-).",
+   "codSeccion": "UNICA",
+   "fecha": "13-11-2026",
+   "codDiario": 330805,
+   "existeHtml": "S",
+   "existeDoc": "S",
+   "existeImagen": "S",
+   "tipoNota": "null",
+   "estado": 2,
+   "pagina": 187,
+   "paginaHasta": 0,
+   "nombreCodOrgaUno": "ORGANISMOS AUTONOMOS",
+   "codOrgaUno": "OA",
+   "codOrgaDos": "BANCO DE MEXICO",
+   "orden": 24.0,
+   "existePdf": "S"
+  }
+ ],
+ "audioSumario": [
+  {
+   "MAT": {}
+  },
+  {
+   "VES": {}
+  }
+ ]
+}

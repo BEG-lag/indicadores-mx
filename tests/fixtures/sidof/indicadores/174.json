@@ -1,0 +1,91 @@
+{
+ "messageCode": 200,
+ "response": "OK",
+ "ListaIndicadores": [
+  {
+   "codIndicador": 39994,
+   "codTipoIndicador": 174,
+   "fecha": "26-10-2026",
+   "valor": "6.8784%"
+  },
+  {
+   "codIndicador": 40002,
+   "codTipoIndicador": 174,
+   "fecha": "27-10-2026",
+   "valor": "6.8680%"
+  },
+  {
+   "codIndicador": 40007,
+   "codTipoIndicador": 174,
+   "fecha": "28-10-2026",
+   "valor": "6.8577%"
+  },
+  {
+   "codIndicador": 40012,
+   "codTipoIndicador": 174,
+   "fecha": "29-10-2026",
+   "valor": "6.8680%"
+  },
+  {
+   "codIndicador": 40017,
+   "codTipoIndicador": 174,
+   "fecha": "30-10-2026",
+   "valor": "6.8784%"
+  },
+  {
+   "codIndicador": 40022,
+   "codTipoIndicador": 174,
+   "fecha": "03-11-2026",
+   "valor": "6.8990%"
+  },
+  {
+   "codIndicador": 40027,
+   "codTipoIndicador": 174,
+   "fecha": "04-11-2026",
+   "valor": "7.0128%"
+  },
+  {
+   "codIndicador": 40032,
+   "codTipoIndicador": 174,
+   "fecha": "05-11-2026",
+   "valor": "6.8474%"
+  },
+  {
+   "codIndicador": 40037,
+   "codTipoIndicador": 174,
+   "fecha": "06-11-2026",
+   "valor": "6.8577%"
+  },
+  {
+   "codIndicador": 40042,
+   "codTipoIndicador": 174,
+   "fecha": "09-11-2026",
+   "valor": "6.5995%"
+  },
+  {
+   "codIndicador": 40047,
+   "codTipoIndicador": 174,
+   "fecha": "10-11-2026",
+   "valor": "6.5995%"
+  },
+  {
+   "codIndicador": 40067,
+   "codTipoIndicador": 174,
+   "fecha": "11-11-2026",
+   "valor": "6.5995%"
+  },
+  {
+   "codIndicador": 40072,
+   "codTipoIndicador": 174,
+   "fecha": "12-11-2026",
+   "valor": "6.5995%"
+  },
+  {
+   "codIndicador": 40078,
+   "codTipoIndicador": 174,
+   "fecha": "13-11-2026",
+   "valor": "6.5995%"
+  }
+ ],
+ "TotalIndicadores": 14
+}
