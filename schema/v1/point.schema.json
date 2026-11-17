@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beg-lag.github.io/indicadores-mx/schema/v1/point.schema.json",
+  "title": "Single observation file (API v1)",
+  "description": "/v1/<series>/latest.json, /v1/<series>/<YYYY-MM-DD>.json and /v1/<series>/<YYYY-MM>.json: the series fields plus one observation. latest.json adds the previous observation.",
+  "type": "object",
+  "allOf": [{ "$ref": "observation.schema.json" }],
+  "required": ["series", "name", "unit", "unit_label", "date", "value", "source"],
+  "properties": {
+    "series": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "name": { "$ref": "series.schema.json#/$defs/text" },
+    "unit": { "type": "string" },
+    "unit_label": { "$ref": "series.schema.json#/$defs/text" },
+    "previous": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "value"],
+      "properties": { "date": { "type": "string" }, "value": { "type": "number" } }
+    }
+  },
+  "unevaluatedProperties": false
+}

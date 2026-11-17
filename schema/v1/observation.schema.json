@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beg-lag.github.io/indicadores-mx/schema/v1/observation.schema.json",
+  "title": "Observation (API v1)",
+  "description": "One value of a series with its source. Used inside year and all files, and as the body of /v1/<series>/<YYYY-MM-DD>.json and /v1/<series>/<YYYY-MM>.json (together with the series fields).",
+  "type": "object",
+  "required": ["date", "value", "source"],
+  "properties": {
+    "date": {
+      "description": "What the date means depends on the series: see date_meaning in /v1/index.json. YYYY-MM for monthly series.",
+      "type": "string",
+      "pattern": "^\\d{4}-(0[1-9]|1[0-2])(-(0[1-9]|[12]\\d|3[01]))?$"
+    },
+    "value": {
+      "description": "Number written with the exact decimal text published.",
+      "type": "number"
+    },
+    "valid_to": {
+      "description": "Step series (minimum wages, UMA): last day the value was in force; null while it is in force.",
+      "type": ["string", "null"],
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "term_days": {
+      "description": "TIIE only: the term stated in the DOF note when it differs from the nominal one because the maturity fell on a holiday (for example 29 days for the 28-day TIIE).",
+      "type": "integer",
+      "minimum": 1
+    },
+    "source": { "$ref": "#/$defs/source" }
+  },
+  "$defs": {
+    "noteRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dof_date", "dof_note", "url"],
+      "properties": {
+        "dof_date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "dof_note": { "type": "integer", "minimum": 1 },
+        "url": { "type": "string", "pattern": "^https://dof\\.gob\\.mx/nota_detalle\\.php\\?codigo=\\d+&fecha=\\d{2}/\\d{2}/\\d{4}$" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["origin", "checked"],
+      "properties": {
+        "origin": {
+          "description": "Where the number was read: sidof (SIDOF indicator API, which mirrors the DOF), dof (the text of the DOF note), inegi (INEGI open data) or derived (computed by this project).",
+          "enum": ["sidof", "dof", "inegi", "derived"]
+        },
+        "dof_date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "dof_note": { "type": "integer", "minimum": 1 },
+        "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "checked": {
+          "description": "True when the value was compared with the text of its DOF note and matched.",
+          "type": "boolean"
+        },
+        "correction": { "$ref": "#/$defs/noteRef" },
+        "remark": { "type": "string" },
+        "from": { "type": "string" },
+        "formula": { "type": "string" }
+      },
+      "dependentRequired": { "dof_note": ["dof_date", "url"] }
+    }
+  }
+}

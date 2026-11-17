@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beg-lag.github.io/indicadores-mx/schema/data.schema.json",
+  "title": "indicadores-mx data file",
+  "description": "Canonical store of one series in the repository: data/<series>.json, one observation per line, sorted by date. Values are the decimal text published, without spaces or percent signs. The API in /v1 is generated from these files.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "series", "observations"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "series": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/observation" }
+    }
+  },
+  "$defs": {
+    "isoDate": { "type": "string", "format": "date", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "dofRef": {
+      "description": "A DOF note: publication date and SIDOF codNota.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "note"],
+      "properties": {
+        "date": { "$ref": "#/$defs/isoDate" },
+        "note": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "value"],
+      "properties": {
+        "date": {
+          "description": "YYYY-MM-DD (daily and step series) or YYYY-MM (monthly series).",
+          "type": "string",
+          "pattern": "^\\d{4}-(0[1-9]|1[0-2])(-(0[1-9]|[12]\\d|3[01]))?$"
+        },
+        "value": {
+          "description": "Decimal text as published (no sign, spaces or percent).",
+          "type": "string",
+          "pattern": "^-?\\d+(\\.\\d+)?$"
+        },
+        "dof": { "$ref": "#/$defs/dofRef" },
+        "checked": {
+          "description": "The value was compared with the text of its DOF note and matched.",
+          "const": true
+        },
+        "correction": { "$ref": "#/$defs/dofRef" },
+        "origin": { "enum": ["sidof", "dof", "inegi", "derived"] },
+        "remark": { "type": "string", "minLength": 1 },
+        "term_days": {
+          "description": "TIIE only: the term the DOF note states when Banco de México shortened or extended the nominal one because the maturity fell on a holiday (for example 29 instead of 28).",
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}

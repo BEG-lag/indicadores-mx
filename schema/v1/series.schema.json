@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beg-lag.github.io/indicadores-mx/schema/v1/series.schema.json",
+  "title": "Series file (API v1)",
+  "description": "/v1/<series>/<YYYY>.json (with year) and /v1/<series>/all.json (with first and last).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["series", "name", "unit", "unit_label", "count", "observations"],
+  "properties": {
+    "series": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "name": { "$ref": "#/$defs/text" },
+    "unit": { "type": "string" },
+    "unit_label": { "$ref": "#/$defs/text" },
+    "year": { "type": "integer", "minimum": 1990 },
+    "count": { "type": "integer", "minimum": 1 },
+    "first": { "type": "string" },
+    "last": { "type": "string" },
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "observation.schema.json" }
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["es", "en"],
+      "properties": { "es": { "type": "string" }, "en": { "type": "string" } }
+    }
+  }
+}
