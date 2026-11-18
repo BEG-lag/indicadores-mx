@@ -658,10 +658,14 @@ def _value_forms(value: str) -> list[str]:
 
 def value_in_text(value: str, text: str) -> bool:
     """True if the note prints ``value`` (with or without thousands separators)."""
+    # Also try with spaces inside numbers removed: some notes split a figure across text
+    # runs ("$42,794. 64"). The raw text is tried too, because joining can glue two
+    # neighbouring figures ("$ 14,270 14.27", old and new pesos in 1993).
     compact = re.sub(r"(?<=\d)\s+(?=[\d.,])|(?<=[.,])\s+(?=\d)", "", text)
-    for form in _value_forms(value):
-        if re.search(r"(?<![\d.,])" + re.escape(form) + r"(?![\d])", compact):
-            return True
+    for candidate in (text, compact):
+        for form in _value_forms(value):
+            if re.search(r"(?<![\d.,])" + re.escape(form) + r"(?![\d])", candidate):
+                return True
     return False
 
 

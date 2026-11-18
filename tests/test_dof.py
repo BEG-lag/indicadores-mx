@@ -142,3 +142,33 @@ def test_minimum_wage_2016_amount_is_in_the_correction(text_of):
     from indicadores_mx.pipeline import value_in_text
 
     assert value_in_text("73.04", text_of(5420747))
+
+
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        (
+            "Los salarios mínimos generales que tendrán vigencia a partir del 1o. de enero de 1993 "
+            "en las áreas geográficas ..., serán los que se señalan a continuación: Pesos Nuevos "
+            'actuales(*) pesos Area geográfica "A" $ 14,270 14.27 Area geográfica "B" $ 13,260 '
+            '13.26 Area geográfica "C" $ 12,050 12.05 TERCERO.- Las definiciones',
+            (date(1993, 1, 1), {"A": "14.27", "B": "13.26", "C": "12.05"}),
+        ),
+        (
+            "salarios mínimos generales que tendrán vigencia a partir del 4 de diciembre de 1995, "
+            "en las áreas ..., serán los que se señalan a continuación: Nuevos Pesos Area "
+            'geográfica "A" N$ 20.15 Area geográfica "B" N$ 18.70 Area geográfica "C" N$ 17.00 '
+            "TERCERO.-",
+            (date(1995, 12, 4), {"A": "20.15", "B": "18.70", "C": "17.00"}),
+        ),
+        (
+            "salarios mínimos generales que tendrán vigencia a partir del 27 de noviembre de 2012 "
+            "en las áreas ..., serán los que se señalan a continuación: Pesos A rea geográfica "
+            '" A " A rea geográfica " B " $62.33 $59.08 TERCERO.- Las definiciones',
+            (date(2012, 11, 27), {"A": "62.33", "B": "59.08"}),
+        ),
+    ],
+    ids=["1993-old-and-new-pesos", "1995-nuevos-pesos", "2012-two-areas"],
+)
+def test_minimum_wage_areas(text, expected):
+    assert dof.parse_minimum_wage_areas(text) == expected

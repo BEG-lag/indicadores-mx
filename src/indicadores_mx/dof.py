@@ -372,24 +372,36 @@ def parse_minimum_wage(text: str) -> MinimumWage | None:
     )
 
 
-# Geographic areas (until September 2015): "...serán los que se señalan a continuación:
-# Pesos Área geográfica "A" Área geográfica "B" Área geográfica "C" $ 59.82 $ 58.13 $ 56.70".
+# Geographic areas (until September 2015). The resolutive point reads "Los salarios mínimos
+# generales que tendrán vigencia a partir del 1o. de enero de 2012 en las áreas geográficas
+# ... serán los que se señalan a continuación:" followed by the table, in one of these layouts:
+#   1993: Pesos Nuevos actuales(*) pesos Area geográfica "A" $ 14,270 14.27 Area ... "B" ...
+#   1994-1999: Area geográfica "A" N$ 15.27 Area geográfica "B" N$ 14.19 Area ... "C" N$ 12.89
+#   2003-2015: Area geográfica "A" Area geográfica "B" Area geográfica "C" $ 52.59 $ 50.96 $ 49.50
 # The text export sometimes splits the accented capital ("A rea geográfica").
-_AREAS = re.compile(
-    r"se[ñn]alan a continuaci[óo]n:?\s*Pesos\s*((?:[ÁA]\s?rea geogr[áa]fica\s*\"\s*[ABC]\s*\"\s*)+)"
-    r"((?:\$\s*\d{1,3}(?:,\d{3})*\.\d{2}\s*)+)",
-    re.I,
+_AREA_POINT = re.compile(
+    r"salarios m[ií]nimos generales que (?:tendr[áa]n vigencia|regir[áa]n)\s+a partir del\s+"
+    r"(\d{1,2})\s*[º°o]?\.?\s+de\s+([a-záéíóú]+)(?:\s+de)?\s+(?:del año\s+)?(\d{4})"
+    r"(.{0,500}?)(?:TERCERO|$)",
+    re.I | re.S,
 )
 
 
 def parse_minimum_wage_areas(text: str) -> tuple[date, dict[str, str]] | None:
     """In-force date and general minimum wage by geographic area (resolutions to 2015)."""
-    match = _AREAS.search(text)
-    start = _in_force(text)
-    if not match or start is None:
-        return None
-    letters = re.findall(r"\"\s*([ABC])\s*\"", match.group(1))
-    values = [_number(v) for v in re.findall(r"\$\s*([\d,]+\.\d{2})", match.group(2))]
-    if len(letters) != len(values):
-        return None
-    return start, dict(zip(letters, values, strict=True))
+    for match in _AREA_POINT.finditer(text):
+        month = month_number(match.group(2))
+        if month is None:
+            continue
+        segment = match.group(4)
+        cut = re.search(r"se[ñn]alan a continuaci[óo]n", segment, re.I)
+        if cut is None:
+            continue
+        table = segment[cut.end() :]
+        letters = re.findall(r"geogr[áa]fica\s*[\"“”]?\s*([ABC])\s*[\"“”]?", table)
+        values = re.findall(r"(?<![\d,.])(\d{1,3}\.\d{2})(?!\d)", table)
+        if not letters or len(letters) != len(values):
+            continue
+        start = date(int(match.group(3)), month, int(match.group(1)))
+        return start, dict(zip(letters, values, strict=True))
+    return None
