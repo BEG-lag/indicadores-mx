@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "series": "salario-minimo-zlfn",
+  "observations": [
+    {"date":"2019-01-01","value":"176.72","dof":{"date":"2018-12-26","note":5547224},"checked":true},
+    {"date":"2020-01-01","value":"185.56","dof":{"date":"2019-12-23","note":5582641},"checked":true},
+    {"date":"2021-01-01","value":"213.39","dof":{"date":"2020-12-23","note":5608587},"checked":true},
+    {"date":"2022-01-01","value":"260.34","dof":{"date":"2021-12-08","note":5637615},"checked":true},
+    {"date":"2023-01-01","value":"312.41","dof":{"date":"2022-12-07","note":5673550},"checked":true},
+    {"date":"2024-01-01","value":"374.89","dof":{"date":"2023-12-12","note":5711066},"checked":true},
+    {"date":"2025-01-01","value":"419.88","dof":{"date":"2024-12-19","note":5745678},"checked":true},
+    {"date":"2026-01-01","value":"440.87","dof":{"date":"2025-12-09","note":5775534},"checked":true}
+  ]
+}

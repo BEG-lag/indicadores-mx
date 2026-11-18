@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "series": "salario-minimo-area-c",
+  "observations": [
+    {"date":"1993-01-01","value":"12.05","dof":{"date":"1992-12-07","note":4702110},"checked":true},
+    {"date":"1994-01-01","value":"12.89","dof":{"date":"1993-12-13","note":4812691},"checked":true},
+    {"date":"1995-01-01","value":"13.79","dof":{"date":"1994-12-21","note":4779444},"checked":true},
+    {"date":"1995-04-01","value":"15.44","dof":{"date":"1995-03-31","note":4871665},"checked":true},
+    {"date":"1995-12-04","value":"17.00","dof":{"date":"1995-12-02","note":4885524},"checked":true},
+    {"date":"1996-01-01","value":"17.00","dof":{"date":"1995-12-02","note":4885526},"checked":true},
+    {"date":"1996-04-01","value":"19.05","dof":{"date":"1996-03-28","note":4877526},"checked":true},
+    {"date":"1996-12-03","value":"22.50","dof":{"date":"1996-12-02","note":4906226},"checked":true},
+    {"date":"1997-01-01","value":"22.50","dof":{"date":"1996-12-02","note":4906227},"checked":true},
+    {"date":"1998-01-01","value":"26.05","dof":{"date":"1997-12-23","note":4904613},"checked":true},
+    {"date":"1998-12-03","value":"29.70","dof":{"date":"1998-12-02","note":4901353},"checked":true},
+    {"date":"1999-01-01","value":"29.70","dof":{"date":"1998-12-02","note":4901380},"checked":true},
+    {"date":"2000-01-01","value":"32.70","dof":{"date":"1999-12-31","note":4958949},"checked":true},
+    {"date":"2001-01-01","value":"35.85","dof":{"date":"2000-12-27","note":2065085},"checked":true},
+    {"date":"2002-01-01","value":"38.30","dof":{"date":"2001-12-29","note":757736},"checked":true},
+    {"date":"2003-01-01","value":"40.30","dof":{"date":"2002-12-26","note":716613},"checked":true},
+    {"date":"2004-01-01","value":"42.11","dof":{"date":"2003-12-23","note":710844},"checked":true},
+    {"date":"2005-01-01","value":"44.05","dof":{"date":"2004-12-22","note":754585},"checked":true},
+    {"date":"2006-01-01","value":"45.81","dof":{"date":"2005-12-26","note":2103201},"checked":true},
+    {"date":"2007-01-01","value":"47.60","dof":{"date":"2006-12-29","note":4941892},"checked":true},
+    {"date":"2008-01-01","value":"49.50","dof":{"date":"2007-12-27","note":5011545},"checked":true},
+    {"date":"2009-01-01","value":"51.95","dof":{"date":"2008-12-23","note":5075377},"checked":true},
+    {"date":"2010-01-01","value":"54.47","dof":{"date":"2009-12-23","note":5126139},"checked":true},
+    {"date":"2011-01-01","value":"56.70","dof":{"date":"2010-12-23","note":5172213},"checked":true},
+    {"date":"2012-01-01","value":"59.08","dof":{"date":"2011-12-19","note":5225150},"checked":true}
+  ]
+}

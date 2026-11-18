@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "series": "salario-minimo-general",
+  "observations": [
+    {"date":"2015-10-01","value":"70.10","dof":{"date":"2015-09-30","note":5409968},"checked":true,"remark":"Unificación de las áreas geográficas A y B en una sola."},
+    {"date":"2016-01-01","value":"73.04","dof":{"date":"2015-12-18","note":5420678},"checked":true,"correction":{"date":"2015-12-18","note":5420747},"remark":"La resolución publicada omitió el monto (\"será de $\"); una nota aclaratoria del mismo día lo fijó en $73.04."},
+    {"date":"2017-01-01","value":"80.04","dof":{"date":"2016-12-19","note":5466000},"checked":true},
+    {"date":"2017-12-01","value":"88.36","dof":{"date":"2017-11-24","note":5505642},"checked":true,"remark":"Revisión a mitad de año: adelantó al 1 de diciembre de 2017 el aumento previsto para 2018."},
+    {"date":"2018-01-01","value":"88.36","dof":{"date":"2017-12-21","note":5508586},"checked":true,"remark":"La fijación para 2018 confirmó el monto vigente desde el 1 de diciembre de 2017."},
+    {"date":"2019-01-01","value":"102.68","dof":{"date":"2018-12-26","note":5547224},"checked":true},
+    {"date":"2020-01-01","value":"123.22","dof":{"date":"2019-12-23","note":5582641},"checked":true},
+    {"date":"2021-01-01","value":"141.70","dof":{"date":"2020-12-23","note":5608587},"checked":true},
+    {"date":"2022-01-01","value":"172.87","dof":{"date":"2021-12-08","note":5637615},"checked":true},
+    {"date":"2023-01-01","value":"207.44","dof":{"date":"2022-12-07","note":5673550},"checked":true},
+    {"date":"2024-01-01","value":"248.93","dof":{"date":"2023-12-12","note":5711066},"checked":true},
+    {"date":"2025-01-01","value":"278.80","dof":{"date":"2024-12-19","note":5745678},"checked":true},
+    {"date":"2026-01-01","value":"315.04","dof":{"date":"2025-12-09","note":5775534},"checked":true}
+  ]
+}

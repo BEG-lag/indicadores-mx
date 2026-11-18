@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "series": "uma-mensual",
+  "observations": [
+    {"date":"2016-01-28","value":"2220.42","dof":{"date":"2016-01-28","note":5423819},"checked":true,"remark":"Valor inicial: igual al salario mínimo general vigente al entrar en vigor el Decreto de desindexación (DOF 27-01-2016, vigente al día siguiente), según su artículo segundo transitorio. La nota del INEGI no fija fecha de inicio; se usa la de entrada en vigor del Decreto."},
+    {"date":"2017-02-01","value":"2294.90","dof":{"date":"2017-01-10","note":5468844},"checked":true},
+    {"date":"2018-02-01","value":"2450.24","dof":{"date":"2018-01-10","note":5510380},"checked":true},
+    {"date":"2019-02-01","value":"2568.50","dof":{"date":"2019-01-10","note":5547867},"checked":true},
+    {"date":"2020-02-01","value":"2641.15","dof":{"date":"2020-01-10","note":5583733},"checked":true},
+    {"date":"2021-02-01","value":"2724.45","dof":{"date":"2021-01-08","note":5609633},"checked":true},
+    {"date":"2022-02-01","value":"2925.09","dof":{"date":"2022-01-10","note":5640427},"checked":true},
+    {"date":"2023-02-01","value":"3153.70","dof":{"date":"2023-01-10","note":5676670},"checked":true},
+    {"date":"2024-02-01","value":"3300.53","dof":{"date":"2024-01-10","note":5714085},"checked":true},
+    {"date":"2025-02-01","value":"3439.46","dof":{"date":"2025-01-10","note":5746930},"checked":true},
+    {"date":"2026-02-01","value":"3566.22","dof":{"date":"2026-01-09","note":5778072},"checked":true}
+  ]
+}
