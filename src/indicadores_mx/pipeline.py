@@ -61,9 +61,51 @@ def family(term: int) -> int | None:
     return next((nominal for nominal, terms in TIIE_FAMILIES.items() if term in terms), None)
 
 
-# SIDOF values that disagree with their DOF note and were settled by reading the note.
-# Filled from the backfill investigation; see docs/fuentes.md, section "Errores".
-KNOWN: dict[tuple[str, str], str] = {}
+# Disagreements between SIDOF and the DOF note, investigated one by one during the backfill
+# (docs/fuentes.md, section 5). KNOWN: the DOF note is right and SIDOF is not; the value
+# printed in the note is used. CORRECTIONS: the note printed a wrong figure and a later DOF
+# note (fe de erratas, aclaración, nota aclaratoria) fixed it; the corrected value is used
+# and both notes are kept.
+KNOWN: dict[tuple[str, str], str] = {
+    ("tiie-91", "2002-05-02"): (
+        "El SIDOF registra 7.12; la nota del DOF de ese día imprime 6.8500 y ninguna nota "
+        "posterior lo corrige. Se usa el valor de la nota."
+    ),
+}
+
+
+@dataclass(frozen=True, slots=True)
+class Correction:
+    value: str
+    ref: DofRef
+    remark: str
+
+
+CORRECTIONS: dict[tuple[str, str], Correction] = {
+    ("fix", "1995-08-01"): Correction(
+        "6.1142",
+        DofRef(date(1995, 8, 2), 4878907),
+        "La nota del DOF imprimió N$6.1146; una aclaración del Banco de México publicada el "
+        "2 de agosto de 1995 lo corrigió a N$6.1142.",
+    ),
+    ("tiie-28", "2024-02-21"): Correction(
+        "11.4925",
+        DofRef(date(2024, 2, 23), 5717861),
+        "La nota del DOF imprimió 11.9425%; una nota aclaratoria del 23 de febrero de 2024 lo "
+        "corrigió a 11.4925%.",
+    ),
+    ("udis", "2005-12-22"): Correction(
+        "3.631552",
+        DofRef(date(2005, 12, 13), 2101984),
+        "La nota del DOF del 9 de diciembre de 2005 imprimió 3.621552; una fe de erratas del 13 "
+        "de diciembre de 2005 lo corrigió a 3.631552.",
+    ),
+}
+
+# Before 1996 the dates in SIDOF and in the DOF do not always line up (in 1993 the notes
+# were sometimes signed the day they were published and sometimes the day before). A
+# disagreement in those years is documented on the value instead of stopping the run.
+TOLERANT_BEFORE = date(1996, 1, 1)
 
 
 @dataclass
@@ -105,6 +147,19 @@ def is_inegi(row: NoteRow) -> bool:
     return bool(re.search(r"ESTAD[IÍ]STICA Y GEOGRAF", row.agency, re.I))
 
 
+def rows_on(run: Run, day: date) -> list[NoteRow]:
+    """The day's relevant notes, minus rows SIDOF lists under a date they do not carry.
+
+    The index for 2000-02-02 and 2000-02-07 holds notes dated a year later (2001); those
+    rows are skipped, so no value is linked to a note of another day.
+    """
+    rows = run.sidof.day_notes(day)
+    kept = [r for r in rows if r.day == day]
+    if len(kept) != len(rows):
+        run.count("index:rows-with-another-date")
+    return kept
+
+
 def notes_for(series_id: str, rows: Iterable[NoteRow]) -> list[NoteRow]:
     """DOF notes of ``rows`` that publish ``series_id``; term-specific TIIE notes first."""
     rows = [r for r in rows if is_banxico(r)]
@@ -125,7 +180,7 @@ def _concerns(series_id: str, row: NoteRow) -> bool:
         return "tipo de cambio para solventar" in title
     if series_id == "tiie-fondeo":
         return "fondeo" in title
-    return "interbancaria" in title and "fondeo" not in title
+    return "interbancaria" in title and "equilibrio" in title and "fondeo" not in title
 
 
 def parse_note_value(series_id: str, text: str) -> tuple[str, int | None] | None:
@@ -186,9 +241,12 @@ class DailyPlan:
     verify_all_after: date
     verify_first_of_month: bool = True
     verify_all: bool = False
+    verify_all_before: date | None = None
 
     def wants(self, day: date, first_in_month: bool) -> bool:
         if self.verify_all or day >= self.verify_all_after:
+            return True
+        if self.verify_all_before is not None and day < self.verify_all_before:
             return True
         return self.verify_first_of_month and first_in_month
 
@@ -212,7 +270,7 @@ def build_daily(
     scan_days = list(scan_days)
     notes_by_day: dict[date, list[NoteRow]] = {}
     for day in scan_days:
-        found = notes_for(series_id, run.sidof.day_notes(day))
+        found = notes_for(series_id, rows_on(run, day))
         if found:
             notes_by_day[day] = found
 
@@ -224,9 +282,19 @@ def build_daily(
     printed_cache: dict[int, str | None] = {}
     terms: dict[int, int] = {}
 
+    misfiled: dict[int, date] = {}
+
     def printed_of(row: NoteRow) -> str | None:
         if row.code not in printed_cache:
-            parsed = parse_note_value(series_id, run.sidof.note(row.code).text)
+            text = run.sidof.note(row.code).text
+            signed = dof.signed_on(text)
+            if signed is not None and not row.day - timedelta(days=12) <= signed <= row.day:
+                # SIDOF filed the note under a date it does not belong to: 2016-03-01 lists
+                # a note signed on 2017-02-28.
+                misfiled[row.code] = signed
+                printed_cache[row.code] = None
+                return None
+            parsed = parse_note_value(series_id, text)
             value = None
             if parsed is not None:
                 value = normalize_value(parsed[0], decimals)
@@ -247,7 +315,14 @@ def build_daily(
             assigned[day] = rows[0]
             continue
         sidof = values.get(day, set())
-        match = next((r for r in rows if printed_of(r) in sidof), None)
+        if sidof:
+            match = next((r for r in rows if printed_of(r) in sidof), None)
+        else:
+            # No SIDOF value to match (TIIE before 2004): take the one note that prints this
+            # term, if exactly one value is printed among the day's notes.
+            printing = [r for r in rows if printed_of(r) is not None]
+            distinct = {printed_of(r) for r in printing}
+            match = printing[0] if len(distinct) == 1 else None
         if match is not None:
             assigned[day] = match
         orphans.extend(r for r in rows if r is not match)
@@ -261,7 +336,8 @@ def build_daily(
                 run.count(f"{series_id}:published-later")
                 break
     for row in orphans:
-        run.warn(f"{series_id}: note {row.code} ({row.day}) matches no SIDOF value")
+        if printed_cache.get(row.code) is not None:
+            run.warn(f"{series_id}: note {row.code} ({row.day}) matches no SIDOF value")
 
     # Days with a note but no SIDOF value: read the note when the series has no SIDOF
     # record yet (TIIE 28 before 2004, for example) or when SIDOF publishes the series
@@ -299,6 +375,21 @@ def build_daily(
         else:
             need_note = len(sidof) != 1 or plan.wants(day, first_in_month)
             printed = printed_of(row) if row is not None and need_note else None
+            if row is not None and row.code in misfiled:
+                run.count(f"{series_id}:misfiled-note")
+                run.warn(
+                    f"{series_id} {day}: note {row.code} is signed {misfiled[row.code]}; "
+                    "SIDOF filed it under the wrong date"
+                )
+                obs = _merge_daily(run, series_id, day, sidof, None, None)
+                if obs is not None:
+                    remark = (
+                        f"La nota que el SIDOF lista ese día ({row.code}) está firmada el "
+                        f"{misfiled[row.code].isoformat()}: es de otra fecha. El valor viene "
+                        "del SIDOF."
+                    )
+                    out.append(obs.with_(remark=remark))
+                continue
             if row is not None and need_note and printed is None:
                 run.warn(f"{series_id} {day}: could not read the value in note {row.code}")
         obs = _merge_daily(run, series_id, day, sidof, ref, printed)
@@ -321,6 +412,12 @@ def _merge_daily(
 ) -> Obs | None:
     key = day.isoformat()
     known = KNOWN.get((series_id, key))
+    fix = CORRECTIONS.get((series_id, key))
+    if fix is not None and sidof == {fix.value}:
+        run.count(f"{series_id}:corrected")
+        return Obs(
+            key=key, value=fix.value, dof=ref, checked=True, correction=fix.ref, remark=fix.remark
+        )
     if len(sidof) == 1:
         (value,) = sidof
         if printed is None:
@@ -332,6 +429,13 @@ def _merge_daily(
             run.count(f"{series_id}:fixed")
             return Obs(key=key, value=printed, dof=ref, checked=True, origin="dof", remark=known)
         note = ref.note if ref else "?"
+        if day < TOLERANT_BEFORE:
+            run.count(f"{series_id}:early-mismatch")
+            remark = (
+                f"La nota del DOF de esa fecha ({note}) imprime {printed}; el SIDOF registra "
+                f"{value}. Antes de 1996 las fechas del SIDOF y del DOF no siempre coinciden."
+            )
+            return Obs(key=key, value=value, remark=remark)
         run.problem(f"{series_id} {key}: SIDOF {value} but DOF note {note} prints {printed}")
         return Obs(key=key, value=value, dof=ref)
     if len(sidof) > 1:
@@ -371,7 +475,7 @@ def udi_publication_targets(day: date) -> date:
 
 
 def udi_notes_on(run: Run, day: date) -> list[NoteRow]:
-    return [r for r in run.sidof.day_notes(day) if is_banxico(r) and dof.is_udi_title(r.title)]
+    return [r for r in rows_on(run, day) if is_banxico(r) and dof.is_udi_title(r.title)]
 
 
 def udi_from_dof(run: Run, day: date) -> tuple[str, DofRef] | None:
@@ -422,6 +526,7 @@ def build_udis(run: Run, start: date, end: date, publication_days: Iterable[date
     # Publications: every Banco de México UDI note in the scanned days.
     refs: dict[date, DofRef] = {}
     checked: set[date] = set()
+    corrected: dict[date, Correction] = {}
     seen: set[int] = set()
     for day in sorted(set(publication_days)):
         for row in udi_notes_on(run, day):
@@ -441,7 +546,13 @@ def build_udis(run: Run, start: date, end: date, publication_days: Iterable[date
                     if when <= end and when >= UDIS_START:
                         run.problem(f"UDI {when} in DOF note {row.code} is missing from SIDOF")
                 elif have != printed:
-                    run.problem(f"UDI {when}: SIDOF {have} vs DOF note {row.code} {printed}")
+                    fix = CORRECTIONS.get(("udis", when.isoformat()))
+                    if fix is not None and fix.value == have:
+                        corrected[when] = fix
+                        checked.add(when)
+                        run.count("udis:corrected")
+                    else:
+                        run.problem(f"UDI {when}: SIDOF {have} vs DOF note {row.code} {printed}")
                 else:
                     checked.add(when)
             run.count("udis:publications")
@@ -450,14 +561,16 @@ def build_udis(run: Run, start: date, end: date, publication_days: Iterable[date
     for day in sorted(resolved):
         ref = refs.get(day)
         origin = "dof" if day in remarks else None
+        fix = corrected.get(day)
         out.append(
             Obs(
                 key=day.isoformat(),
                 value=resolved[day],
                 dof=ref,
                 checked=day in checked,
+                correction=fix.ref if fix else None,
                 origin=origin,
-                remark=remarks.get(day),
+                remark=fix.remark if fix else remarks.get(day),
             )
         )
     _check_udis(run, out)

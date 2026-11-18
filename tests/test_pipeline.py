@@ -181,10 +181,11 @@ def test_value_in_text_handles_thousands_and_split_runs():
 def test_normalize_value():
     assert store.normalize_value(" 6.5147% ") == "6.5147"
     assert store.normalize_value("11.5498%.") == "11.5498"
+    assert store.normalize_value("7.0272%7") == "7.0272"  # SIDOF, 2026-04-27
     assert store.normalize_value("4.995", 4) == "4.9950"
     assert store.normalize_value("1", 6) == "1.000000"
     with pytest.raises(ValueError, match="not a number"):
-        store.normalize_value("5.0300%x")
+        store.normalize_value("5.03x")
 
 
 def test_value_of_a_day_without_dof_is_matched_to_the_next_edition(memory):
@@ -227,3 +228,32 @@ def test_tiie_with_a_holiday_term_is_kept_with_its_term(memory):
     tiie91 = pipeline.build_daily(run, "tiie-91", values, [day], ALL)
     assert tiie91[0].checked
     assert tiie91[0].extra == {}
+
+
+def test_note_filed_under_the_wrong_date_is_not_linked(memory):
+    """SIDOF lists under 2016-03-01 a FIX note signed on 2017-02-28."""
+    day = date(2016, 3, 1)
+    memory.indicators[158] = [{"fecha": "01-03-2016", "valor": "18.1020"}]
+    memory.add_fix_note(day, 5473580, "19.9957")
+    memory.notes[5473580] += " Ciudad de México, a 28 de febrero de 2017.- BANCO DE MÉXICO"
+    run = make_run(memory)
+    values = pipeline.sidof_values(run, "fix", day, day)
+    (obs,) = pipeline.build_daily(run, "fix", values, [day], ALL)
+    assert obs.value == "18.1020"
+    assert obs.dof is None
+    assert "2017-02-28" in (obs.remark or "")
+    assert run.problems == []
+
+
+def test_published_correction_is_applied_with_both_notes(memory):
+    day = date(2024, 2, 21)
+    memory.days[day] = [banxico_row(5717500, TIIE_TITLE, day)]
+    memory.notes[5717500] = "la TIIE a plazo de 28 días obtenida el día de hoy, fue de 11.9425%"
+    memory.indicators[165] = [{"fecha": "21-02-2024", "valor": "11.4925%"}]
+    run = make_run(memory)
+    values = pipeline.sidof_values(run, "tiie-28", day, day)
+    (obs,) = pipeline.build_daily(run, "tiie-28", values, [day], ALL)
+    assert obs.value == "11.4925"
+    assert obs.correction == DofRef(date(2024, 2, 23), 5717861)
+    assert obs.checked
+    assert run.problems == []

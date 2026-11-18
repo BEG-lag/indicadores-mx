@@ -49,8 +49,10 @@ _FIX_TITLE = re.compile(r"^\s*tipo de cambio para solventar obligaciones", re.I)
 _TIIE_TITLE = re.compile(r"^\s*tasas? de inter[eé]s interbancarias? de equilibrio", re.I)
 _FONDEO = re.compile(r"fondeo", re.I)
 _UDI_TITLE = re.compile(r"^\s*valor de la unidad de inversi", re.I)
+_UDI_TITLE_ANYWHERE = re.compile(r"unidades de inversi", re.I)
 _INPC_TITLE = re.compile(r"precios al consumidor", re.I)
-_INPC_MONTHLY_TITLE = re.compile(r"^\s*[íi]ndice nacional de precios al consumidor\.?\s*$", re.I)
+# "ÍÍndice nacional de precios al consumidor." (sic) is the title of the DOF note of 2019-01-10.
+_INPC_MONTHLY_TITLE = re.compile(r"^\s*[íi]+ndice nacional de precios al consumidor\.?\s*$", re.I)
 
 
 def is_fix_title(title: str) -> bool:
@@ -58,8 +60,16 @@ def is_fix_title(title: str) -> bool:
 
 
 def is_tiie_title(title: str) -> bool:
-    """TIIE 28, 91 and 182 (one note since 2008; one note per term before)."""
-    return bool(_TIIE_TITLE.search(title)) and not _FONDEO.search(title)
+    """TIIE 28, 91 and 182 (one note since 2008; one note per term before).
+
+    Excludes the TIIE de fondeo and the TIIE "de operaciones denominadas en unidades de
+    inversión" that Banco de México also published in 1995.
+    """
+    return (
+        bool(_TIIE_TITLE.search(title))
+        and not _FONDEO.search(title)
+        and not _UDI_TITLE_ANYWHERE.search(title)
+    )
 
 
 def is_fondeo_title(title: str) -> bool:
@@ -91,7 +101,7 @@ def _number(raw: str) -> str:
 # ----------------------------------------------------------------- FIX
 
 _FIX_VALUE = re.compile(
-    r"tipo de cambio\b.{0,400}?fue de\s*(?:N\s?\$|\$)\s*(\d{1,3}(?:,\d{3})*\.\s?\d{2,4})(?!\d)",
+    r"tipo de cambio\b.{0,400}?fue de\s*(?:N\s?\$|\$)\s*(\d{1,3}(?:,\d{3})*\.(?:\s?\d){2,4})(?!\d)",
     re.I | re.S,
 )
 

@@ -106,6 +106,7 @@ def _tiie(term: int, code: int, start_note: str) -> Series:
         ),
         decimals=4,
         default_origin="sidof",
+        status="AMARILLO",
         sidof_code=code,
         group="tasas",
         sources=(DOF_SOURCE, _sidof_source(code)),
@@ -150,6 +151,7 @@ SERIES: tuple[Series, ...] = (
         ),
         decimals=4,
         default_origin="sidof",
+        status="AMARILLO",
         sidof_code=158,
         group="tipo-de-cambio",
         sources=(DOF_SOURCE, _sidof_source(158)),
@@ -223,6 +225,7 @@ SERIES: tuple[Series, ...] = (
         ),
         decimals=2,
         default_origin="sidof",
+        status="AMARILLO",
         sidof_code=175,
         group="tasas",
         sources=(DOF_SOURCE, _sidof_source(175)),
@@ -259,6 +262,7 @@ SERIES: tuple[Series, ...] = (
         ),
         decimals=3,
         default_origin="dof",
+        status="AMARILLO",
         group="inflacion",
         sources=(
             DOF_SOURCE,
@@ -290,6 +294,7 @@ SERIES: tuple[Series, ...] = (
         legal_basis=Text("Derivada del INPC.", "Derived from the INPC."),
         decimals=2,
         default_origin="derived",
+        status="AMARILLO",
         derived_from="inpc",
         group="inflacion",
         sources=(
@@ -321,6 +326,7 @@ SERIES: tuple[Series, ...] = (
         legal_basis=Text("Derivada del INPC.", "Derived from the INPC."),
         decimals=2,
         default_origin="derived",
+        status="AMARILLO",
         derived_from="inpc",
         group="inflacion",
         sources=(

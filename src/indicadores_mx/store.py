@@ -93,9 +93,10 @@ class Obs:
 def normalize_value(raw: str, decimals: int | None = None) -> str:
     """``" 7. 8425 %."`` to ``"7.8425"``; optionally pad trailing zeros to ``decimals``.
 
+    Anything after a percent sign is dropped (SIDOF has ``"7.0272%7"`` for 2026-04-27).
     Raises ``ValueError`` if what remains is not a plain non-negative decimal.
     """
-    text = raw.strip().rstrip(".").replace("%", "").replace(" ", "").replace(",", "")
+    text = raw.split("%")[0].strip().rstrip(".").replace(" ", "").replace(",", "")
     try:
         number = Decimal(text)
     except InvalidOperation as exc:

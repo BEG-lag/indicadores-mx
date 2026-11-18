@@ -92,6 +92,7 @@ def cmd_backfill(args: argparse.Namespace) -> int:
     plan = pipeline.DailyPlan(
         verify_all_after=date.fromisoformat(args.verify_all_after),
         verify_all=args.verify_all,
+        verify_all_before=date.fromisoformat(args.verify_all_before),
     )
     for sid in daily:
         results[sid] = pipeline.build_daily(run, sid, values[sid], scan_days, plan)
@@ -279,6 +280,7 @@ def build_parser() -> argparse.ArgumentParser:
     common(p)
     p.add_argument("--series", nargs="*", choices=[*pipeline.DAILY_IDS, "udis", "inpc"])
     p.add_argument("--verify-all-after", default="2025-01-01")
+    p.add_argument("--verify-all-before", default="1996-01-01")
     p.add_argument("--verify-all", action="store_true", help="compare every value with its note")
     p.set_defaults(func=cmd_backfill)
 
