@@ -75,11 +75,21 @@ code { font-family: var(--mono); font-size: 0.92em; color: var(--cyan); }
 }
 
 /* Hero */
-.hero { padding-top: clamp(36px, 8vw, 84px); padding-bottom: 20px; }
+.hero { padding-top: clamp(36px, 7vw, 72px); padding-bottom: 20px; display: grid; gap: 28px; align-items: center; }
+@media (min-width: 980px) { .hero { grid-template-columns: minmax(0, 1fr) 340px; } }
+.today { background: linear-gradient(180deg, var(--ink-2), rgba(17, 20, 27, 0.6)); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+.today-title { margin: 0 0 10px; color: var(--muted); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
+.today dl { margin: 0; display: grid; gap: 2px; }
+.today .row-t { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 10px 0; border-top: 1px dashed var(--line); }
+.today .row-t:first-child { border-top: 0; }
+.today dt { color: var(--muted); font-size: 12px; }
+.today dd { margin: 0; font-size: 20px; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+.today .when { grid-column: 1 / -1; font-size: 11px; color: var(--muted); }
+.today .when a { margin-left: 6px; }
 .kicker { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; margin: 0; }
 .pulse { width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 0 rgba(207, 255, 69, 0.6); animation: pulse 2.4s infinite; }
 @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(207, 255, 69, 0); } 100% { box-shadow: 0 0 0 0 rgba(207, 255, 69, 0); } }
-h1 { font-size: clamp(30px, 6vw, 62px); line-height: 1.06; letter-spacing: -0.035em; margin: 18px 0; max-width: 17ch; font-weight: 700; }
+h1 { font-size: clamp(30px, 5.4vw, 56px); line-height: 1.06; letter-spacing: -0.035em; margin: 18px 0; max-width: 18ch; font-weight: 700; }
 h1 em { font-family: var(--serif); font-style: italic; font-weight: 500; color: var(--lime); letter-spacing: -0.01em; }
 .lead { font-family: var(--sans); font-size: clamp(16px, 2vw, 18px); color: #c9ccd3; max-width: 62ch; margin: 0 0 24px; }
 .cta { display: flex; flex-wrap: wrap; gap: 12px; }

@@ -7,7 +7,7 @@ const EXTRA = { "inflacion-anual": ["inflacion-mensual"], "salario-minimo-genera
 const T = {
   es: {
     skip: "Saltar al contenido", nav: "Secciones", nav_values: "Valores", nav_charts: "Gráficas", nav_converter: "Convertidor", nav_api: "API", nav_sources: "Fuentes",
-    kicker: "Datos abiertos · API estática · actualizado por GitHub Actions",
+    kicker: "Datos abiertos · API estática · actualizado por GitHub Actions", today_title: "Último valor publicado",
     title: "Los indicadores oficiales de México, <em>trazables al DOF</em>.",
     lead: "Tipo de cambio FIX, UDIS, TIIE, INPC e inflación, salario mínimo y UMA. Cada valor trae la nota del Diario Oficial de la Federación que lo publicó, y se sirve como JSON y CSV sin cuenta, sin token y con CORS abierto.",
     cta_api: "Usar la API", cta_repo: "Código y datos en GitHub",
@@ -45,7 +45,7 @@ const T = {
   },
   en: {
     skip: "Skip to content", nav: "Sections", nav_values: "Values", nav_charts: "Charts", nav_converter: "Converter", nav_api: "API", nav_sources: "Sources",
-    kicker: "Open data · static API · updated by GitHub Actions",
+    kicker: "Open data · static API · updated by GitHub Actions", today_title: "Latest published value",
     title: "Mexico's official indicators, <em>traceable to the DOF</em>.",
     lead: "FIX exchange rate, UDIS, TIIE, INPC and inflation, minimum wage and UMA. Every value carries the Diario Oficial de la Federación note that published it, served as JSON and CSV with no account, no token and open CORS.",
     cta_api: "Use the API", cta_repo: "Code and data on GitHub",
@@ -227,6 +227,7 @@ async function renderCards() {
     CARD_IDS.filter((id) => state.series[id]).map((id) => getJson(path(id)).then((l) => [id, l]).catch(() => null)),
   );
   host.innerHTML = latest.filter(Boolean).map(([id, l]) => cardHtml(state.series[id], l)).join("");
+  renderToday(Object.fromEntries(latest.filter(Boolean)));
   for (const slot of host.querySelectorAll("[data-spark]")) {
     const id = slot.dataset.spark;
     const entry = state.series[id];
@@ -235,6 +236,18 @@ async function renderCards() {
       slot.innerHTML = sparkline(c.values.slice(-n), { step: entry.kind === "step" });
     });
   }
+}
+
+function renderToday(byId) {
+  const rows = ["fix", "udis", "tiie-28", "inflacion-anual"]
+    .filter((id) => byId[id])
+    .map((id) => {
+      const entry = state.series[id];
+      const obs = byId[id];
+      const src = obs.source && obs.source.url ? `<a href="${esc(obs.source.url)}">${esc(obs.source.dof_note ? "DOF" : t("source"))} ↗</a>` : "";
+      return `<div class="row-t"><dt>${esc(entry.short[state.lang])}</dt><dd>${esc(fmtValue(entry, obs.value))}</dd><span class="when">${esc(fmtDate(obs.date))}${src}</span></div>`;
+    });
+  document.getElementById("today").innerHTML = rows.join("");
 }
 
 // ------------------------------------------------------------------ chart

@@ -36,6 +36,7 @@
 
   <main id="main">
     <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-text">
       <p class="kicker"><span class="pulse" aria-hidden="true"></span><span data-i18n="kicker">Datos abiertos · API estática · actualizado por GitHub Actions</span></p>
       <h1 id="hero-title" data-i18n-html="title">Los indicadores oficiales de México, <em>trazables al DOF</em>.</h1>
       <p class="lead" data-i18n="lead">Tipo de cambio FIX, UDIS, TIIE, INPC e inflación, salario mínimo y UMA. Cada valor trae la nota del Diario Oficial de la Federación que lo publicó, y se sirve como JSON y CSV sin cuenta, sin token y con CORS abierto.</p>
@@ -44,6 +45,11 @@
         <a class="btn" href="https://github.com/BEG-lag/indicadores-mx" data-i18n="cta_repo">Código y datos en GitHub</a>
       </div>
       <p class="fresh" id="fresh" aria-live="polite"></p>
+      </div>
+      <aside class="today" aria-labelledby="today-title">
+        <p class="today-title" id="today-title" data-i18n="today_title">Último valor publicado</p>
+        <dl id="today"></dl>
+      </aside>
     </section>
 
     <section class="wrap block" id="valores" aria-labelledby="values-title">
