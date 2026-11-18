@@ -33,7 +33,10 @@ function yTicks(min, max, count) {
   const step = niceStep(max - min, count);
   const start = Math.floor(min / step) * step;
   const ticks = [];
-  for (let v = start; v <= max + step * 0.5; v += step) ticks.push(Number(v.toFixed(10)));
+  for (let v = start; ; v += step) {
+    ticks.push(Number(v.toFixed(10)));
+    if (v >= max - step * 1e-9) break;
+  }
   return { ticks, min: ticks[0], max: ticks[ticks.length - 1], step };
 }
 
