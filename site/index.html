@@ -16,6 +16,165 @@
   <meta property="og:url" content="https://beg-lag.github.io/indicadores-mx/">
   <meta property="og:image" content="https://beg-lag.github.io/indicadores-mx/assets/og.png">
   <script type="module" src="assets/app.js"></script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Dataset",
+ "name": "Indicadores económicos oficiales de México (FIX, UDIS, TIIE, INPC, salario mínimo y UMA)",
+ "alternateName": "indicadores-mx",
+ "description": "Dataset abierto con 37,372 valores oficiales de 17 series económicas de México: tipo de cambio FIX desde 1991, UDIS desde 1995, TIIE a 28, 91 y 182 días y TIIE de fondeo, INPC con inflación mensual y anual, salario mínimo general, de la Zona Libre de la Frontera Norte y por áreas geográficas, y UMA diaria, mensual y anual. Cada valor lleva la nota del Diario Oficial de la Federación que lo publicó. Se actualiza solo con GitHub Actions y se sirve como API estática en JSON y CSV. Réplica no oficial; solo el DOF y las instituciones emisoras son fuente oficial.",
+ "url": "https://beg-lag.github.io/indicadores-mx/",
+ "sameAs": "https://github.com/BEG-lag/indicadores-mx",
+ "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+ "isAccessibleForFree": true,
+ "creator": {
+  "@type": "Person",
+  "name": "Benjamín Esponda García",
+  "url": "https://pivotek.mx/",
+  "sameAs": [
+   "https://github.com/BEG-lag"
+  ]
+ },
+ "inLanguage": "es",
+ "temporalCoverage": "1991-11-13/..",
+ "spatialCoverage": {
+  "@type": "Place",
+  "name": "México"
+ },
+ "keywords": [
+  "México",
+  "tipo de cambio",
+  "FIX",
+  "UDIS",
+  "TIIE",
+  "INPC",
+  "inflación",
+  "salario mínimo",
+  "UMA",
+  "Diario Oficial de la Federación",
+  "datos abiertos"
+ ],
+ "distribution": [
+  {
+   "@type": "DataDownload",
+   "name": "Catálogo de series (JSON)",
+   "encodingFormat": "application/json",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/index.json"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "fix (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/fix/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "udis (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/udis/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "tiie-28 (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/tiie-28/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "tiie-91 (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/tiie-91/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "tiie-182 (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/tiie-182/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "tiie-fondeo (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/tiie-fondeo/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "inpc (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/inpc/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "inflacion-mensual (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/inflacion-mensual/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "inflacion-anual (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/inflacion-anual/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "salario-minimo-general (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/salario-minimo-general/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "salario-minimo-zlfn (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/salario-minimo-zlfn/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "salario-minimo-area-a (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/salario-minimo-area-a/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "salario-minimo-area-b (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/salario-minimo-area-b/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "salario-minimo-area-c (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/salario-minimo-area-c/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "uma-diaria (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/uma-diaria/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "uma-mensual (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/uma-mensual/all.csv"
+  },
+  {
+   "@type": "DataDownload",
+   "name": "uma-anual (CSV)",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://beg-lag.github.io/indicadores-mx/v1/uma-anual/all.csv"
+  }
+ ],
+ "variableMeasured": [
+  "Tipo de cambio FIX",
+  "UDIS",
+  "TIIE",
+  "INPC",
+  "Inflación",
+  "Salario mínimo",
+  "UMA"
+ ]
+}
+</script>
 </head>
 <body>
   <a class="skip" href="#main" data-i18n="skip">Saltar al contenido</a>
