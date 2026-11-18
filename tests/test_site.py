@@ -85,3 +85,13 @@ def test_html_basics():
     assert 'name="viewport"' in html
     assert 'class="skip"' in html
     assert html.count("<h1") == 1
+
+
+def test_readme_examples_match_the_data():
+    """The JSON and CSV examples in both READMEs are generated from data/ (past dates only)."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("readme", ROOT / "scripts" / "readme.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    assert module.main(["--check"]) == 0
