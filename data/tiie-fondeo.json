@@ -1720,6 +1720,7 @@
     {"date":"2026-11-12","value":"6.26","dof":{"date":"2026-11-12","note":5803636},"checked":true},
     {"date":"2026-11-13","value":"6.26","dof":{"date":"2026-11-13","note":5803777},"checked":true},
     {"date":"2026-11-17","value":"6.26","dof":{"date":"2026-11-17","note":5803877},"checked":true},
-    {"date":"2026-11-18","value":"6.26","dof":{"date":"2026-11-18","note":5804128},"checked":true}
+    {"date":"2026-11-18","value":"6.26","dof":{"date":"2026-11-18","note":5804128},"checked":true},
+    {"date":"2026-11-19","value":"6.26","dof":{"date":"2026-11-19","note":5804326},"checked":true}
   ]
 }

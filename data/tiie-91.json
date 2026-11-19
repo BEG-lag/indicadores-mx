@@ -5202,6 +5202,7 @@
     {"date":"2026-11-12","value":"6.5492","dof":{"date":"2026-11-12","note":5803635},"checked":true},
     {"date":"2026-11-13","value":"6.5492","dof":{"date":"2026-11-13","note":5803776},"checked":true},
     {"date":"2026-11-17","value":"6.5492","dof":{"date":"2026-11-17","note":5803876},"checked":true},
-    {"date":"2026-11-18","value":"6.5492","dof":{"date":"2026-11-18","note":5804127},"checked":true}
+    {"date":"2026-11-18","value":"6.5492","dof":{"date":"2026-11-18","note":5804127},"checked":true},
+    {"date":"2026-11-19","value":"6.5492","dof":{"date":"2026-11-19","note":5804325},"checked":true}
   ]
 }
