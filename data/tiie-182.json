@@ -1381,6 +1381,7 @@
     {"date":"2026-11-19","value":"6.5995","dof":{"date":"2026-11-19","note":5804325},"checked":true},
     {"date":"2026-11-20","value":"6.5995","dof":{"date":"2026-11-20","note":5804513},"checked":true},
     {"date":"2026-11-23","value":"6.5995","dof":{"date":"2026-11-23","note":5804621},"checked":true},
-    {"date":"2026-11-24","value":"6.6305","dof":{"date":"2026-11-24","note":5804809},"checked":true}
+    {"date":"2026-11-24","value":"6.6305","dof":{"date":"2026-11-24","note":5804809},"checked":true},
+    {"date":"2026-11-25","value":"6.6408","dof":{"date":"2026-11-25","note":5805258},"checked":true}
   ]
 }

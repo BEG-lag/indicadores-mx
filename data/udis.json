@@ -11560,6 +11560,21 @@
     {"date":"2026-11-22","value":"8.925504","dof":{"date":"2026-11-10","note":5803350},"checked":true},
     {"date":"2026-11-23","value":"8.927827","dof":{"date":"2026-11-10","note":5803350},"checked":true},
     {"date":"2026-11-24","value":"8.930151","dof":{"date":"2026-11-10","note":5803350},"checked":true},
-    {"date":"2026-11-25","value":"8.932476","dof":{"date":"2026-11-10","note":5803350},"checked":true}
+    {"date":"2026-11-25","value":"8.932476","dof":{"date":"2026-11-10","note":5803350},"checked":true},
+    {"date":"2026-11-26","value":"8.935690","dof":{"date":"2026-11-25","note":5805263},"checked":true},
+    {"date":"2026-11-27","value":"8.938905","dof":{"date":"2026-11-25","note":5805263},"checked":true},
+    {"date":"2026-11-28","value":"8.942121","dof":{"date":"2026-11-25","note":5805263},"checked":true},
+    {"date":"2026-11-29","value":"8.945338","dof":{"date":"2026-11-25","note":5805263},"checked":true},
+    {"date":"2026-11-30","value":"8.948556","dof":{"date":"2026-11-25","note":5805263},"checked":true},
+    {"date":"2026-12-01","value":"8.951775","dof":{"date":"2026-11-25","note":5805263},"checked":true},
+    {"date":"2026-12-02","value":"8.954996","dof":{"date":"2026-11-25","note":5805263},"checked":true},
+    {"date":"2026-12-03","value":"8.958218","dof":{"date":"2026-11-25","note":5805263},"checked":true},
+    {"date":"2026-12-04","value":"8.961441","dof":{"date":"2026-11-25","note":5805263},"checked":true},
+    {"date":"2026-12-05","value":"8.964665","dof":{"date":"2026-11-25","note":5805263},"checked":true},
+    {"date":"2026-12-06","value":"8.967890","dof":{"date":"2026-11-25","note":5805263},"checked":true},
+    {"date":"2026-12-07","value":"8.971117","dof":{"date":"2026-11-25","note":5805263},"checked":true},
+    {"date":"2026-12-08","value":"8.974344","dof":{"date":"2026-11-25","note":5805263},"checked":true},
+    {"date":"2026-12-09","value":"8.977573","dof":{"date":"2026-11-25","note":5805263},"checked":true},
+    {"date":"2026-12-10","value":"8.980803","dof":{"date":"2026-11-25","note":5805263},"checked":true}
   ]
 }
