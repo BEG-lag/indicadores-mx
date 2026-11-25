@@ -64,6 +64,14 @@ code { font-family: var(--mono); font-size: 0.92em; color: var(--cyan); }
 .brand:hover { text-decoration: none; }
 .brand i { width: 12px; height: 12px; background: var(--lime); display: inline-block; }
 .brand b { color: var(--lime); font-weight: 700; }
+/* Logo de PIVOTEK junto al nombre del sitio (naranja sobre tinta; isotipo en pantallas angostas) */
+.pvk { display: flex; align-items: center; flex: none; height: 22px; padding-left: 16px; border-left: 1px solid var(--line); }
+.pvk:hover { text-decoration: none; opacity: 0.85; }
+.pvk img { display: block; transform: translateY(2px); }
+.pvk .pvk-iso { transform: translateY(4px); } /* ajuste óptico: el ojo de la p cae en la línea base del nombre */
+.pvk-iso { display: none !important; }
+/* Isotipo abajo de 361 px y de 760 a 779 px, donde aparece el menú y el logotipo ya no cabe */
+@media (max-width: 360px), (min-width: 760px) and (max-width: 779px) { .pvk-logo { display: none !important; } .pvk-iso { display: block !important; } }
 .nav { display: none; gap: 18px; margin-left: auto; font-size: 13px; }
 .nav a { color: var(--muted); }
 .nav a:hover { color: var(--paper); }
