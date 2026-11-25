@@ -1,4 +1,8 @@
 <p align="center">
+  <a href="https://pivotek.mx"><img src="assets/pivotek-logo.svg" alt="PIVOTEK" width="200"></a>
+</p>
+
+<p align="center">
   <img src="assets/banner.svg" alt="indicadores-mx: los indicadores económicos oficiales de México como datos abiertos y API estática, cada valor trazable al Diario Oficial de la Federación" width="100%">
 </p>
 
