@@ -1383,6 +1383,7 @@
     {"date":"2026-11-23","value":"6.5995","dof":{"date":"2026-11-23","note":5804621},"checked":true},
     {"date":"2026-11-24","value":"6.6305","dof":{"date":"2026-11-24","note":5804809},"checked":true},
     {"date":"2026-11-25","value":"6.6408","dof":{"date":"2026-11-25","note":5805258},"checked":true},
-    {"date":"2026-11-26","value":"6.6924","dof":{"date":"2026-11-26","note":5805379},"checked":true}
+    {"date":"2026-11-26","value":"6.6924","dof":{"date":"2026-11-26","note":5805379},"checked":true},
+    {"date":"2026-11-27","value":"6.7234","dof":{"date":"2026-11-27","note":5805539},"checked":true,"origin":"dof","remark":"SIDOF devolvió 6.3800 y 6.7234; se usa el valor de la nota del DOF."}
   ]
 }

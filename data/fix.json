@@ -8801,6 +8801,7 @@
     {"date":"2026-11-23","value":"19.0228","dof":{"date":"2026-11-23","note":5804620},"checked":true},
     {"date":"2026-11-24","value":"19.1648","dof":{"date":"2026-11-24","note":5804808},"checked":true},
     {"date":"2026-11-25","value":"19.3668","dof":{"date":"2026-11-25","note":5805257},"checked":true},
-    {"date":"2026-11-26","value":"19.7040","dof":{"date":"2026-11-26","note":5805378},"checked":true}
+    {"date":"2026-11-26","value":"19.7040","dof":{"date":"2026-11-26","note":5805378},"checked":true},
+    {"date":"2026-11-27","value":"19.7203","dof":{"date":"2026-11-27","note":5805538},"checked":true}
   ]
 }
